@@ -28,13 +28,42 @@ module.exports = function(srv) {
       }
     });
 
-    socket.on('user-choose-conversation', function(data1, data2) {
-      console.log('datas >> ', data1, data2);
+
+
+
+
+    socket.on('chat-start', function(userId, companyUserId) {
+      let chatId = usersCache.getChatId(userId, companyUserId);
+      if (!chatId) {
+        socket.emit('chat-new', userId, companyUserId);
+      }
     });
+
+
+
+
+
+
+
+
+    socket.on('chat-init', function(chatId, userId, companyUserId) {
+      usersCache.attachChatId(chatId, userId, companyUserId);
+      console.log('USERS CACHE AFTER CHAT INIT > ', usersCache);
+    });
+
+
+
     
+
+
+
+
+
+
     socket.on('disconnect', function() {
-      console.log('somebody disconnected > ', socket.userId);
+      console.log('userId disconnected > ', socket.userId);
       usersCache.removeUserSocket(socket.userId, socket.id);
+      console.log('USERS AFTER ONE DISCONNECT >> ', usersCache.users);
     });
 
     socket.on('user-logout', function(userId) {
@@ -42,6 +71,7 @@ module.exports = function(srv) {
       //let users = usersCache.prepareUsers();
       io.sockets.emit('users-update', usersCache.users);
       console.log('user logged out and removed >> ', userId);
+      console.log('USERS AFTER ONE LOGOUT >> ', usersCache.users);
     });
 
     socket.on('message-sent', function(data) {

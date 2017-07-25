@@ -9,12 +9,12 @@ class Users {
 		let userHasTabAlready = false;
 		if (!this.users[user.id]) {
 			this.users[user.id] = user;
-			this.users[user.id].sockets = [socketId];
+			this.users[user.id].socketId = socketId;
 		} else {
-			if (this.users[user.id].sockets.length) {
+			if (this.users[user.id].socketId) {
 				userHasTabAlready = true;
 			} else {
-				this.users[user.id].sockets.push(socketId);
+				this.users[user.id].socketId = socketId;
 			}
 		}
 		return userHasTabAlready;
@@ -25,23 +25,31 @@ class Users {
 	}
 
 	removeUserSocket(userId, socketId) {
-		if (this.users[userId] && this.users[userId].sockets) {
-			let socketIdIndex = this.users[userId].sockets.indexOf(socketId);
-			if (socketIdIndex >= 0) {
-				this.users[userId].sockets.splice(socketIdIndex, 1);
-			}
+		if (this.users[userId] && this.users[userId].socketId) {
+			this.users[userId].socketId = null;
 		}
 	}
 
-	/*prepareUsers(uId) {
-		let users = [];
-		for (let userId in this.users) {
-      //if (userId != uId) {
-        users.push(this.users[userId]); 
-      //}
-    }
-    return users;
-	}*/
+	getChatId(userId, companyUserId) {
+		if (this.users[userId] && this.users[userId].chats) {
+			return this.users[userId].chats[companyUserId];
+		}
+	}
+
+	attachChatId(chatId, userId, companyUserId) {
+		if (this.users[userId]) {
+			if (!this.users[userId].chats) {
+				this.users[userId].chats = {};
+			}
+			this.users[userId].chats[companyUserId] = chatId;
+		}
+		if (this.users[companyUserId]) {
+			if (!this.users[companyUserId].chats) {
+				this.users[companyUserId].chats = {};
+			}
+			this.users[companyUserId].chats[userId] = chatId;
+		}
+	}
 
 }
 

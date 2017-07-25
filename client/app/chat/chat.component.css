@@ -1,7 +1,7 @@
 textarea {
   resize: none;
 }
-.current-conversation {
+.current-chat {
   background: #098dff none repeat scroll 0 0;
   color: #fff;
 }
