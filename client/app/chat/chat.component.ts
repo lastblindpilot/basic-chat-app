@@ -14,8 +14,8 @@ export class ChatComponent implements OnInit {
   private serverUrl = 'http://localhost:3000';
   private socket = IO(this.serverUrl);
 	message = '';
-  currentConversation = null;
   public users = [];
+  public currentConversation = null;
 
 
   constructor( private userService: UserService,
@@ -34,6 +34,11 @@ export class ChatComponent implements OnInit {
       console.log('TYPEOF USERS CLIENT >>', typeof users);
 
       self.users = self.userService.prepareOwnUsers(users);
+    });
+
+    this.socket.on('user-has-tab-already', function() {
+      console.log('should redirect this user');
+      self.router.navigate(['/toomuchtabs']);
     });
 
     this.socket.on('message-echo', function(data) {
@@ -55,6 +60,12 @@ export class ChatComponent implements OnInit {
     this.userService.logout();
     //this.socket.disconnect();
     this.router.navigate(['']);
+  }
+
+  chooseUser(userId) {
+    //console.log('target >', e.target);
+    this.currentConversation = userId;
+    this.socket.emit('user-choose-conversation', this.userService.getUserId(), userId);
   }
 
 }

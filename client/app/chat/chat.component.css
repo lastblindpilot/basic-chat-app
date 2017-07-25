@@ -1,6 +1,10 @@
 textarea {
   resize: none;
 }
+.current-conversation {
+  background: #098dff none repeat scroll 0 0;
+  color: #fff;
+}
 .all-conversation button {
   background: #f5f3f3 none repeat scroll 0 0;
   border: 1px solid #dddddd;
@@ -40,6 +44,7 @@ textarea {
    padding: 0;
    width: 100%;
    }
+
    .all-conversation ul li {
    border-bottom: 1px solid #dddddd;
    line-height: normal;
@@ -173,7 +178,7 @@ textarea {
   width:100%;
 }
 .users li:hover {
-  background: #428bca none repeat scroll 0 0;
+  background: #afdaff none repeat scroll 0 0;
   color: #fff;
   cursor:pointer;
 }

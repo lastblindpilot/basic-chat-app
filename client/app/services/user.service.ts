@@ -8,17 +8,11 @@ export class UserService {
 
 	login(name) {
 		let user = {
-			id: UUID.UUID(),
+			id: 'u-'+UUID.UUID(),
 			name: name
 		}
 		localStorage.setItem('chatUser', JSON.stringify(user));
 		return { id: user.id, name: user.name };
-	}
-
-	addSocket(socketId) {
-		let user = JSON.parse(localStorage.getItem('chatUser'));
-		user.sockets.push(socketId);
-		localStorage.setItem('chatUser', JSON.stringify(user));
 	}
 
 	getUser() {
@@ -28,7 +22,7 @@ export class UserService {
 
 	getUserId() {
 		let user = JSON.parse(localStorage.getItem('chatUser'));
-		return user.id;
+		return (user) ? user.id : null;
 	}
 
 	isLoggedIn() {

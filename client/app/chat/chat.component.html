@@ -1,6 +1,6 @@
 <div style="text-align:center">
   <h1>
-    LOGO
+    Basic Chat App
   </h1>
 </div>
 <div class="main-section">
@@ -16,7 +16,7 @@
           </div>
           <div class="users">
             <ul class="list-unstyled">
-              <li class="left clearfix" *ngFor="let user of users">
+              <li class="left clearfix" [ngClass]="{'current-conversation': currentConversation === user.id}" (click)="chooseUser(user.id)" *ngFor="let user of users">
                 <span class="chat-img pull-left">
                      <img src="https://pp.userapi.com/c638924/v638924333/407b6/1gxKxL29IF4.jpg" alt="User Avatar" class="img-circle">
                      </span>

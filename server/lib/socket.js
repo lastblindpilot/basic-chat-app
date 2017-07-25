@@ -17,11 +17,19 @@ module.exports = function(srv) {
       console.log('socket ID >>', socket.id);
       console.log('USER JOINED > ', user);
       socket.userId = user.id;
-      usersCache.addUser(user, socket.id);
+      let userHasTabAlready = usersCache.addUser(user, socket.id);
       console.log('USERS >> ', usersCache.users);
       //let users = usersCache.prepareUsers(user.id);
       console.log('USERS PREPARED >> ', usersCache.users);
-      io.sockets.emit('users-update', usersCache.users);
+      if (userHasTabAlready) {
+        socket.emit('user-has-tab-already');
+      } else {
+        io.sockets.emit('users-update', usersCache.users);
+      }
+    });
+
+    socket.on('user-choose-conversation', function(data1, data2) {
+      console.log('datas >> ', data1, data2);
     });
     
     socket.on('disconnect', function() {

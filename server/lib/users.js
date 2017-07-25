@@ -1,3 +1,4 @@
+'use strict';
 class Users {
 
 	constructor() {
@@ -5,12 +6,18 @@ class Users {
 	}
 
 	addUser(user, socketId) {
+		let userHasTabAlready = false;
 		if (!this.users[user.id]) {
 			this.users[user.id] = user;
 			this.users[user.id].sockets = [socketId];
 		} else {
-			this.users[user.id].sockets.push(socketId);
+			if (this.users[user.id].sockets.length) {
+				userHasTabAlready = true;
+			} else {
+				this.users[user.id].sockets.push(socketId);
+			}
 		}
+		return userHasTabAlready;
 	}
 
 	removeUser(userId) {
