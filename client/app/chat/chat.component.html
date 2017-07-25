@@ -1,0 +1,269 @@
+<div style="text-align:center">
+  <h1>
+    LOGO
+  </h1>
+</div>
+<div class="main-section">
+  <div class="container">
+    <div class="chat-container">
+      <div class="col-sm-3 chat-sidebar">
+        <div class="row">
+          <div class="dropdown all-conversation">
+            <div class="users-head" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <span class="fa fa-weixin" aria-hidden="true"></span> All Conversations
+            </div>
+
+          </div>
+          <div class="users">
+            <ul class="list-unstyled">
+              <li class="left clearfix" *ngFor="let user of users">
+                <span class="chat-img pull-left">
+                     <img src="https://pp.userapi.com/c638924/v638924333/407b6/1gxKxL29IF4.jpg" alt="User Avatar" class="img-circle">
+                     </span>
+                <div class="chat-body clearfix">
+                  <div class="header-sec">
+                    <strong class="primary-font">{{user.name}}</strong><span class="badge pull-right">3</span>
+                  </div>
+                </div>
+              </li>
+
+              <!-- <li class="left clearfix">
+                <span class="chat-img pull-left">
+                     <img src="https://pp.userapi.com/c638924/v638924333/407b6/1gxKxL29IF4.jpg" alt="User Avatar" class="img-circle">
+                     </span>
+                <div class="chat-body clearfix">
+                  <div class="header-sec">
+                    <strong class="primary-font">Jack Sparrow</strong> <strong class="pull-right ">
+                           09:45AM</strong>
+                  </div>
+                  <div class="contact-sec">
+                    <strong class="primary-font">(123) 123-456</strong> <span class="badge pull-right">3</span>
+                  </div>
+                </div>
+              </li>
+              <li class="left clearfix">
+                <span class="chat-img pull-left">
+                     <img src="https://pp.userapi.com/c638924/v638924333/407b6/1gxKxL29IF4.jpg" alt="User Avatar" class="img-circle">
+                     </span>
+                <div class="chat-body clearfix">
+                  <div class="header-sec">
+                    <strong class="primary-font">Jack Sparrow</strong> <strong class="pull-right">
+                           09:45AM</strong>
+                  </div>
+                  <div class="contact-sec">
+                    <strong class="primary-font">(123) 123-456</strong> <span class="badge pull-right">3</span>
+                  </div>
+                </div>
+              </li>
+              <li class="left clearfix">
+                <span class="chat-img pull-left">
+                     <img src="https://pp.userapi.com/c638924/v638924333/407b6/1gxKxL29IF4.jpg" alt="User Avatar" class="img-circle">
+                     </span>
+                <div class="chat-body clearfix">
+                  <div class="header-sec">
+                    <strong class="primary-font">Jack Sparrow</strong> <strong class="pull-right">
+                           09:45AM</strong>
+                  </div>
+                  <div class="contact-sec">
+                    <strong class="primary-font">(123) 123-456</strong> <span class="badge pull-right">3</span>
+                  </div>
+                </div>
+              </li>
+              <li class="left clearfix">
+                <span class="chat-img pull-left">
+                     <img src="https://pp.userapi.com/c638924/v638924333/407b6/1gxKxL29IF4.jpg" alt="User Avatar" class="img-circle">
+                     </span>
+                <div class="chat-body clearfix">
+                  <div class="header-sec">
+                    <strong class="primary-font">Jack Sparrow</strong> <strong class="pull-right">
+                           09:45AM</strong>
+                  </div>
+                  <div class="contact-sec">
+                    <strong class="primary-font">(123) 123-456</strong> <span class="badge pull-right">3</span>
+                  </div>
+                </div>
+              </li>
+              <li class="left clearfix">
+                <span class="chat-img pull-left">
+                     <img src="https://pp.userapi.com/c638924/v638924333/407b6/1gxKxL29IF4.jpg" alt="User Avatar" class="img-circle">
+                     </span>
+                <div class="chat-body clearfix">
+                  <div class="header-sec">
+                    <strong class="primary-font">Jack Sparrow</strong> <strong class="pull-right">
+                           09:45AM</strong>
+                  </div>
+                  <div class="contact-sec">
+                    <strong class="primary-font">(123) 123-456</strong> <span class="badge pull-right">3</span>
+                  </div>
+                </div>
+              </li>
+              <li class="left clearfix">
+                <span class="chat-img pull-left">
+                     <img src="https://pp.userapi.com/c638924/v638924333/407b6/1gxKxL29IF4.jpg" alt="User Avatar" class="img-circle">
+                     </span>
+                <div class="chat-body clearfix">
+                  <div class="header-sec">
+                    <strong class="primary-font">Jack Sparrow</strong> <strong class="pull-right">
+                           09:45AM</strong>
+                  </div>
+                  <div class="contact-sec">
+                    <strong class="primary-font">(123) 123-456</strong> <span class="badge pull-right">3</span>
+                  </div>
+                </div>
+              </li>
+              <li class="left clearfix">
+                <span class="chat-img pull-left">
+                     <img src="https://pp.userapi.com/c638924/v638924333/407b6/1gxKxL29IF4.jpg" alt="User Avatar" class="img-circle">
+                     </span>
+                <div class="chat-body clearfix">
+                  <div class="header-sec">
+                    <strong class="primary-font">Jack Sparrow</strong> <strong class="pull-right">
+                           09:45AM</strong>
+                  </div>
+                  <div class="contact-sec">
+                    <strong class="primary-font">(123) 123-456</strong> <span class="badge pull-right">3</span>
+                  </div>
+                </div>
+              </li>
+              <li class="left clearfix">
+                <span class="chat-img pull-left">
+                     <img src="https://pp.userapi.com/c638924/v638924333/407b6/1gxKxL29IF4.jpg" alt="User Avatar" class="img-circle">
+                     </span>
+                <div class="chat-body clearfix">
+                  <div class="header-sec">
+                    <strong class="primary-font">Jack Sparrow</strong> <strong class="pull-right">
+                           09:45AM</strong>
+                  </div>
+                  <div class="contact-sec">
+                    <strong class="primary-font">(123) 123-456</strong> <span class="badge pull-right">3</span>
+                  </div>
+                </div>
+              </li>
+              <li class="left clearfix">
+                <span class="chat-img pull-left">
+                     <img src="https://pp.userapi.com/c638924/v638924333/407b6/1gxKxL29IF4.jpg" alt="User Avatar" class="img-circle">
+                     </span>
+                <div class="chat-body clearfix">
+                  <div class="header-sec">
+                    <strong class="primary-font">Jack Sparrow</strong> <strong class="pull-right">
+                           09:45AM</strong>
+                  </div>
+                  <div class="contact-sec">
+                    <strong class="primary-font">(123) 123-456</strong> <span class="badge pull-right">3</span>
+                  </div>
+                </div>
+              </li>
+              <li class="left clearfix">
+                <span class="chat-img pull-left">
+                     <img src="https://pp.userapi.com/c638924/v638924333/407b6/1gxKxL29IF4.jpg" alt="User Avatar" class="img-circle">
+                     </span>
+                <div class="chat-body clearfix">
+                  <div class="header-sec">
+                    <strong class="primary-font">Jack Sparrow</strong> <strong class="pull-right">
+                           09:45AM</strong>
+                  </div>
+                  <div class="contact-sec">
+                    <strong class="primary-font">(123) 123-456</strong> <span class="badge pull-right">3</span>
+                  </div>
+                </div>
+              </li> -->
+            </ul>
+          </div>
+        </div>
+      </div>
+      <!--chat-sidebar-->
+
+
+      <div class="col-sm-9 message-section">
+        <div class="row">
+          <div class="conversation-head">
+            <div class="pull-right">
+              <div class="dropdown">
+                <button class="dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <i class="fa fa-cogs" aria-hidden="true"></i> Setting
+                  <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenu1">
+                  <li><a href="#">Action</a>
+                  </li>
+                  <li><a href="#">Profile</a>
+                  </li>
+                  <li><a href="#" (click)="logout($event)">Logout</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <!--conversation-head-->
+
+          <div class="chat-area">
+            <ul class="list-unstyled">
+
+
+
+            <!-- 
+              <li class="left clearfix">
+                <span class="chat-img1 pull-left">
+                     <img src="https://pp.userapi.com/c638924/v638924333/407b6/1gxKxL29IF4.jpg" alt="User Avatar" class="img-circle">
+                     </span>
+                <div class="chat-body1 clearfix">
+                  <p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia.</p>
+                  <div class="chat-time pull-right">09:40PM</div>
+                </div>
+              </li>
+              <li class="left clearfix">
+                <span class="chat-img1 pull-left">
+                     <img src="https://pp.userapi.com/c638924/v638924333/407b6/1gxKxL29IF4.jpg" alt="User Avatar" class="img-circle">
+                     </span>
+                <div class="chat-body1 clearfix">
+                  <p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia.</p>
+                  <div class="chat-time pull-right">09:40PM</div>
+                </div>
+              </li>
+              <li class="left clearfix">
+                <span class="chat-img1 pull-left">
+                     <img src="https://pp.userapi.com/c638924/v638924333/407b6/1gxKxL29IF4.jpg" alt="User Avatar" class="img-circle">
+                     </span>
+                <div class="chat-body1 clearfix">
+                  <p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia.</p>
+                  <div class="chat-time pull-right">09:40PM</div>
+                </div>
+              </li>
+              <li class="left clearfix admin-chat">
+                <span class="chat-img1 pull-right">
+                     <img src="https://pp.userapi.com/c638924/v638924333/407b6/1gxKxL29IF4.jpg" alt="User Avatar" class="img-circle">
+                     </span>
+                <div class="chat-body1 clearfix">
+                  <p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia.</p>
+                  <div class="chat-time pull-left">09:40PM</div>
+                </div>
+              </li>
+              <li class="left clearfix admin-chat">
+                <span class="chat-img1 pull-right">
+                     <img src="https://pp.userapi.com/c638924/v638924333/407b6/1gxKxL29IF4.jpg" alt="User Avatar" class="img-circle">
+                     </span>
+                <div class="chat-body1 clearfix">
+                  <p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia.</p>
+                  <div class="chat-time pull-left">09:40PM</div>
+                </div>
+              </li>
+ -->
+
+
+
+            </ul>
+          </div>
+          <!--chat-area-->
+          <div class="message-write">
+            <textarea class="form-control" placeholder="type a message" [(ngModel)]="message"></textarea>
+            <div class="clearfix"></div>
+            <div class="chat-bottom">
+              <a href="#" class="pull-right btn btn-success" (click)="sendMessage($event, message)">Send</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--message-section-->
+    </div>
+  </div>
+</div>

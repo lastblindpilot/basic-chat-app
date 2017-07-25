@@ -1,10 +1,10 @@
-import { BasicChatAppPage } from './app.po';
+import { Chatapp4Page } from './app.po';
 
-describe('basic-chat-app App', () => {
-  let page: BasicChatAppPage;
+describe('chatapp4 App', () => {
+  let page: Chatapp4Page;
 
   beforeEach(() => {
-    page = new BasicChatAppPage();
+    page = new Chatapp4Page();
   });
 
   it('should display welcome message', () => {

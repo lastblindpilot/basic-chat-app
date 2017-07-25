@@ -1,0 +1,9 @@
+  <div class="wrapper">
+    <form class="form-signin" [formGroup]="loginForm" (ngSubmit)="login()">       
+      <h1 class="form-signin-heading">Login to chat!</h1>
+      <div [ngClass]="setClassUsername()">
+      	<input type="text" class="form-control name-input" name="username" placeholder="Name" formControlName="username" required="" autofocus="" />
+      </div>
+      <button class="btn btn-lg btn-primary btn-block" [disabled]="!loginForm.valid" type="submit">Login</button>   
+    </form>
+  </div>
