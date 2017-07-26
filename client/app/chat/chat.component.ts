@@ -4,6 +4,7 @@ import { UserService } from '../services/user.service';
 import { ChatService } from '../services/chat.service';
 import * as IO from 'socket.io-client';
 import { Router } from '@angular/router';
+import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'app-chat',
@@ -12,21 +13,32 @@ import { Router } from '@angular/router';
 })
 export class ChatComponent implements OnInit {
 
+  
   private serverUrl = 'http://localhost:3000';
   private socket = IO(this.serverUrl);
-	message = '';
+  public chatId = '';
+	public messages = [];
+  //message =''; // to delete
   public users = [];
-  public currentChat = null;
+  public currCompanyUserId = null;
+  public sendForm: FormGroup;
+  message = new FormControl('', [Validators.required,
+                                  Validators.minLength(1)]);
 
 
   constructor( private userService: UserService,
                private chatService: ChatService,
+               private formBuilder: FormBuilder,
                private router: Router,
                private zone: NgZone ) {}
 
   ngOnInit() {
 
     let self = this;
+
+    self.sendForm = this.formBuilder.group({
+      message: this.message
+    });
 
     this.socket.emit('user-joined', this.userService.getUser());
 
@@ -49,15 +61,11 @@ export class ChatComponent implements OnInit {
 
 
 
-
-
-
-    this.socket.on('chat-new', function(userId, companyUserId) {
-      let chatId = self.chatService.initChat();
-      self.socket.emit('chat-init', chatId, userId, companyUserId);
+    self.socket.on('chat-init', function(chatId) {
+      console.log('CHAT INIT ! >', chatId);
+      let chat = self.chatService.getChat(chatId);
+      self.chatId = chat.id;
     });
-
-
 
 
 
@@ -71,11 +79,16 @@ export class ChatComponent implements OnInit {
 
   }
 
-  sendMessage(e) {
+  /*sendMessage(e) {
   	e.preventDefault();
   	console.log('Message > ', this.message);
     this.socket.emit('message-sent', this.message);
   	this.message = '';
+  }*/
+
+  sendMessage() {
+    console.log('send message', this.sendForm.value.message);
+    this.sendForm.reset();
   }
 
   logout(e) {
@@ -88,7 +101,7 @@ export class ChatComponent implements OnInit {
 
   chooseChat(companyUserId) {
     //console.log('target >', e.target);
-    this.currentChat = companyUserId;
+    this.currCompanyUserId = companyUserId;
     this.socket.emit('chat-start', this.userService.getUserId(), companyUserId);
   }
 

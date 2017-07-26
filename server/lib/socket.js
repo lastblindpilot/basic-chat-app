@@ -1,6 +1,7 @@
 'use strict';
 const IO = require('socket.io');
 const Users = require('./users');
+const UUID = require('uuid/v4');
 
 module.exports = function(srv) {
 
@@ -35,25 +36,16 @@ module.exports = function(srv) {
     socket.on('chat-start', function(userId, companyUserId) {
       let chatId = usersCache.getChatId(userId, companyUserId);
       if (!chatId) {
-        socket.emit('chat-new', userId, companyUserId);
-      }
+        chatId = 'c-'+UUID();
+        usersCache.attachChatId(chatId, userId, companyUserId);
+      } 
+      io.to(usersCache.users[userId].socketId).emit('chat-init', chatId);
+      io.to(usersCache.users[companyUserId].socketId).emit('chat-init', chatId);
     });
 
 
 
 
-
-
-
-
-    socket.on('chat-init', function(chatId, userId, companyUserId) {
-      usersCache.attachChatId(chatId, userId, companyUserId);
-      console.log('USERS CACHE AFTER CHAT INIT > ', usersCache);
-    });
-
-
-
-    
 
 
 

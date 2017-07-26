@@ -1,6 +1,10 @@
 textarea {
   resize: none;
 }
+.chat-message-input {
+  height:49px;
+  margin-bottom:23px;
+}
 .current-chat {
   background: #098dff none repeat scroll 0 0;
   color: #fff;

@@ -6,13 +6,17 @@ export class ChatService {
 
 	constructor() {  }
 	
-	initChat() {
-		let chat = {
-			id: 'c-'+UUID.UUID(),
-			messages: []
-		};
-		localStorage.setItem(chat.id, JSON.stringify(chat));
-		return chat.id;
+	getChat(chatId) {
+		let chat:any = localStorage.getItem(chatId);
+		if (!chat) {
+			return {
+				id: chatId,
+				messages: []
+			};
+		} else {
+			chat = JSON.parse(chat);
+		}
+		return chat;
 	}
 
 }

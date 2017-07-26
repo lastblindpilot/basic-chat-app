@@ -16,7 +16,7 @@
           </div>
           <div class="users">
             <ul class="list-unstyled">
-              <li class="left clearfix" [ngClass]="{'current-chat': currentChat === user.id}" (click)="chooseChat(user.id)" *ngFor="let user of users">
+              <li class="left clearfix" [ngClass]="{'current-chat': currCompanyUserId === user.id}" (click)="chooseChat(user.id)" *ngFor="let user of users">
                 <span class="chat-img pull-left">
                      <img src="https://pp.userapi.com/c638924/v638924333/407b6/1gxKxL29IF4.jpg" alt="User Avatar" class="img-circle">
                      </span>
@@ -255,11 +255,10 @@
           </div>
           <!--chat-area-->
           <div class="message-write">
-            <textarea class="form-control" placeholder="type a message" [(ngModel)]="message"></textarea>
-            <div class="clearfix"></div>
-            <div class="chat-bottom">
-              <a href="#" class="pull-right btn btn-success" (click)="sendMessage($event, message)">Send</a>
-            </div>
+            <form [formGroup]="sendForm" (ngSubmit)="sendMessage()">
+              <input type="text" class="form-control chat-message-input" name="message" placeholder="type a message" formControlName="message" required="" autofocus="" />
+              <button class="btn btn-lg btn-primary btn-block" [disabled]="!sendForm.valid" type="submit">Send</button>   
+            </form>
           </div>
         </div>
       </div>
@@ -267,3 +266,27 @@
     </div>
   </div>
 </div>
+
+
+
+
+
+<!-- 
+<form class="form-signin" [formGroup]="loginForm" (ngSubmit)="login()">       
+      <h1 class="form-signin-heading">Login to chat!</h1>
+      <div [ngClass]="setClassUsername()">
+        <input type="text" class="form-control name-input" name="username" placeholder="Name" formControlName="username" required="" autofocus="" />
+      </div>
+      <button class="btn btn-lg btn-primary btn-block" [disabled]="!loginForm.valid" type="submit">Login</button>   
+    </form>
+ -->
+
+
+
+
+
+
+    <!-- <textarea class="form-control" placeholder="type a message" [(ngModel)]="message"></textarea>
+            <div class="clearfix"></div>
+            <div class="chat-bottom">
+              <a href="#" class="pull-right btn btn-success" (click)="sendMessage($event, message)">Send</a> -->
