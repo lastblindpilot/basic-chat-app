@@ -87,6 +87,8 @@ export class ChatComponent implements OnInit {
       let chat = self.chatService.getChat(data.chatId);
       if (chat.users.indexOf(self.currCompanyUserId) >= 0) {
         console.log('WE MUST SHOW CHAT');
+        self.currentChatId = chat.id;
+        self.messages = chat.messages;
       } else {
         console.log('WE DON"T SHOW CHAT');
       }
