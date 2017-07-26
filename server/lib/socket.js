@@ -39,8 +39,18 @@ module.exports = function(srv) {
         chatId = 'c-'+UUID();
         usersCache.attachChatId(chatId, userId, companyUserId);
       } 
-      io.to(usersCache.users[userId].socketId).emit('chat-init', chatId);
-      io.to(usersCache.users[companyUserId].socketId).emit('chat-init', chatId);
+      io.to(usersCache.users[userId].socketId).emit('chat-init', chatId, userId, companyUserId);
+      io.to(usersCache.users[companyUserId].socketId).emit('chat-init', chatId, userId, companyUserId);
+    });
+
+    socket.on('chat-room-subscribe', function(chatId) {
+      console.log('User joined to Chat > ', chatId);
+      socket.join(chatId);
+    });
+
+    socket.on('message-send', function(data) {
+      console.log('message sent', data.chatId, data.message)
+      io.sockets.in(data.chatId).emit('message-new', data);
     });
 
 

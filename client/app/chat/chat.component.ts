@@ -16,7 +16,7 @@ export class ChatComponent implements OnInit {
   
   private serverUrl = 'http://localhost:3000';
   private socket = IO(this.serverUrl);
-  public chatId = '';
+  public currentChatId = '';
 	public messages = [];
   //message =''; // to delete
   public users = [];
@@ -61,21 +61,35 @@ export class ChatComponent implements OnInit {
 
 
 
-    self.socket.on('chat-init', function(chatId) {
+    self.socket.on('chat-init', function(chatId, userId, companyUserId) {
       console.log('CHAT INIT ! >', chatId);
       let chat = self.chatService.getChat(chatId);
-      self.chatId = chat.id;
+      if (self.currCompanyUserId == userId || self.currCompanyUserId == companyUserId) {
+        self.currentChatId = chat.id;
+        self.messages = chat.messages;
+      }
+      self.socket.emit('chat-room-subscribe', chat.id);
     });
 
 
 
 
 
+
+
+    self.socket.on('message-new', function(data) {
+      console.log('MESSAGE NEW DATA >>', data);
+    });
+
+
+
+
+/*
 
 
     this.socket.on('message-echo', function(data) {
       console.log('message-echo > ', data);
-    });
+    });*/
 
   }
 
@@ -88,6 +102,10 @@ export class ChatComponent implements OnInit {
 
   sendMessage() {
     console.log('send message', this.sendForm.value.message);
+    this.socket.emit('message-send', {
+      chatId: this.currentChatId,
+      message: this.sendForm.value.message
+    });
     this.sendForm.reset();
   }
 
