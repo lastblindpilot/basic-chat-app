@@ -42,6 +42,8 @@ class Users {
 	getChatId(userId, companyUserId) {
 		if (this.users[userId] && this.users[userId].chats) {
 			return this.users[userId].chats[companyUserId];
+		} else {
+			return null;
 		}
 	}
 
