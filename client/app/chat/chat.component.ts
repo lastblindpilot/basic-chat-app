@@ -19,6 +19,7 @@ export class ChatComponent implements OnInit {
   public currentChatId = '';
 	public messages = [];
   //message =''; // to delete
+  public user;
   public users = [];
   public currCompanyUserId = null;
   public sendForm: FormGroup;
@@ -40,19 +41,21 @@ export class ChatComponent implements OnInit {
       message: this.message
     });
 
-    this.socket.emit('user-joined', this.userService.getUser());
+    self.user = this.userService.getUser();
+
+    self.socket.emit('user-joined', self.user);
 
   	console.log('chat init');
-    console.log('socket data', this.socket);
+    console.log('socket data', self.socket);
     
-    this.socket.on('users-update', function(users) {
+    self.socket.on('users-update', function(users) {
       console.log('USERS CLIENT >>', users);
       console.log('TYPEOF USERS CLIENT >>', typeof users);
 
       self.users = self.userService.prepareOwnUsers(users);
     });
 
-    this.socket.on('user-has-tab-already', function() {
+    self.socket.on('user-has-tab-already', function() {
       console.log('should redirect this user');
       self.router.navigate(['/toomuchtabs']);
     });
@@ -64,6 +67,8 @@ export class ChatComponent implements OnInit {
     self.socket.on('chat-init', function(chatId, userId, companyUserId) {
       console.log('CHAT INIT ! >', chatId);
       let chat = self.chatService.getChat(chatId);
+      chat.users = [userId, companyUserId];
+      self.chatService.saveChat(chat);
       if (self.currCompanyUserId == userId || self.currCompanyUserId == companyUserId) {
         self.currentChatId = chat.id;
         self.messages = chat.messages;
@@ -78,7 +83,13 @@ export class ChatComponent implements OnInit {
 
 
     self.socket.on('message-new', function(data) {
-      console.log('MESSAGE NEW DATA >>', data);
+      self.chatService.saveMessage(data.chatId, data.message);
+      let chat = self.chatService.getChat(data.chatId);
+      if (chat.users.indexOf(self.currCompanyUserId) >= 0) {
+        console.log('WE MUST SHOW CHAT');
+      } else {
+        console.log('WE DON"T SHOW CHAT');
+      }
     });
 
 
@@ -102,16 +113,22 @@ export class ChatComponent implements OnInit {
 
   sendMessage() {
     console.log('send message', this.sendForm.value.message);
-    this.socket.emit('message-send', {
+    let self = this;
+    self.socket.emit('message-send', {
       chatId: this.currentChatId,
-      message: this.sendForm.value.message
+      message: {
+        userId: self.user.id,
+        userName: self.user.name,
+        text: self.sendForm.value.message,
+        time: self.formatAMPM(new Date())
+      }
     });
     this.sendForm.reset();
   }
 
   logout(e) {
     e.preventDefault();
-    this.socket.emit('user-logout', this.userService.getUserId());
+    this.socket.emit('user-logout', this.user.id);
     this.userService.logout();
     //this.socket.disconnect();
     this.router.navigate(['']);
@@ -120,7 +137,18 @@ export class ChatComponent implements OnInit {
   chooseChat(companyUserId) {
     //console.log('target >', e.target);
     this.currCompanyUserId = companyUserId;
-    this.socket.emit('chat-start', this.userService.getUserId(), companyUserId);
+    this.socket.emit('chat-start', this.user.id, companyUserId);
+  }
+
+  formatAMPM(date) {
+    let hours = date.getHours();
+    let minutes = date.getMinutes();
+    let ampm = hours >= 12 ? 'pm' : 'am';
+    hours = hours % 12;
+    hours = hours ? hours : 12;
+    minutes = minutes < 10 ? '0'+minutes : minutes;
+    let strTime = hours + ':' + minutes + ' ' + ampm;
+    return strTime;
   }
 
 }

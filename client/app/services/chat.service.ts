@@ -19,4 +19,14 @@ export class ChatService {
 		return chat;
 	}
 
+	saveChat(chat) {
+		localStorage.setItem(chat.id, JSON.stringify(chat));
+	}
+
+	saveMessage(chatId, message) {
+		let chat = JSON.parse(localStorage.getItem(chatId));
+		chat.messages.push(message);
+		localStorage.setItem(chat.id, JSON.stringify(chat));
+	}
+
 }
