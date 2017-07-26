@@ -1,3 +1,4 @@
+// Component for login page
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
@@ -21,15 +22,18 @@ export class LoginComponent implements OnInit {
               private userService: UserService) { }
 
   ngOnInit() {
+    // Login Form INIT
   	this.loginForm = this.formBuilder.group({
       username: this.username
     });
   }
 
+  // sets Class on validation
   setClassUsername() {
     return { 'has-error': !this.username.pristine && !this.username.valid };
   }
 
+  // logins User, routes on login success conditiom
   login() {
     
   	let result:any = this.userService.login(this.loginForm.value.username);

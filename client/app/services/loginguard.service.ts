@@ -1,3 +1,5 @@
+// Login Guard Service
+// activates Chat if user is logged in
 import { Injectable } from '@angular/core';
 import { CanActivate, Router, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { UserService } from './user.service';

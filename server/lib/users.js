@@ -1,10 +1,15 @@
 'use strict';
 class Users {
 
+	/*
+		Class forserver side Users Cache
+	*/
+
 	constructor() {
 		this.users = {}
 	}
 
+	// adds new user to storage
 	addUser(user, socketId) {
 		let userHasTabAlready = false;
 		if (!this.users[user.id]) {
@@ -20,22 +25,27 @@ class Users {
 		return userHasTabAlready;
 	}
 
+	// removes user
 	removeUser(userId) {
 		delete this.users[userId];
 	}
 
+	// removes socket from User data if User is logged in
+	// but left all the tabs he used
 	removeUserSocket(userId, socketId) {
 		if (this.users[userId] && this.users[userId].socketId) {
 			this.users[userId].socketId = null;
 		}
 	}
 
+	// gets chatId bewtween two Users
 	getChatId(userId, companyUserId) {
 		if (this.users[userId] && this.users[userId].chats) {
 			return this.users[userId].chats[companyUserId];
 		}
 	}
 
+	// attaches chatId for Users data
 	attachChatId(chatId, userId, companyUserId) {
 		if (this.users[userId]) {
 			if (!this.users[userId].chats) {
@@ -51,6 +61,7 @@ class Users {
 		}
 	}
 
+	// detaches chatId for Users data
 	detachChatId(userId) {
 		if(Object.keys(this.users).length) {
 			for (let uId in this.users) {

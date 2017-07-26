@@ -1,5 +1,8 @@
 'use strict';
-
+// Server app initialization
+// controls error handlers
+// sets view engine
+// sends main angularjs view file (index.html)
 const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');

@@ -1,3 +1,4 @@
+// Component for 404 erroe notification
 import { Component, OnInit } from '@angular/core';
 
 @Component({

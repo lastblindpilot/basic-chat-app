@@ -1,3 +1,4 @@
+// Auth Service Guard, activates login component if User is not logged in
 import { Injectable } from '@angular/core';
 import { CanActivate, Router, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { UserService } from './user.service';

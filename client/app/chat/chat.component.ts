@@ -1,3 +1,4 @@
+// Main Chat Logic Component
 import { Component, OnInit, NgZone } from '@angular/core';
 import { UUID } from 'angular2-uuid';
 import { UserService } from '../services/user.service';
@@ -13,7 +14,7 @@ import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms'
 })
 export class ChatComponent implements OnInit {
 
-  
+  // Socket IO init
   private serverUrl = 'http://localhost:3000';
   private socket = IO(this.serverUrl);
   public currentChatId = '';
@@ -32,6 +33,7 @@ export class ChatComponent implements OnInit {
                private router: Router,
                private zone: NgZone ) {}
 
+  // Component init
   ngOnInit() {
 
     let self = this;
@@ -42,20 +44,22 @@ export class ChatComponent implements OnInit {
 
     self.user = this.userService.getUser();
 
+    // User joined to Chat App event
     self.socket.emit('user-joined', self.user);
 
+    // Updates own Chat list
     self.socket.on('users-update', function(users) {
       self.users = self.userService.prepareOwnUsers(users);
     });
 
+    // Redirects to one-tab restriction notification
     self.socket.on('user-has-tab-already', function() {
       self.router.navigate(['/toomuchtabs']);
     });
 
-
-
-
-
+    // As soon as chat is initialized between two users
+    // both users subscribe to one Socket Room
+    // to recieve messages from each other
     self.socket.on('chat-init', function(chatId, userId, companyUserId) {
       let chat = self.chatService.getChat(chatId);
       chat.users = [userId, companyUserId];
@@ -67,12 +71,7 @@ export class ChatComponent implements OnInit {
       self.socket.emit('chat-room-subscribe', chat.id);
     });
 
-
-
-
-
-
-
+    // saves new messages and shows chat if User is in the current Chat Room
     self.socket.on('message-new', function(data) {
       self.chatService.saveMessage(data.chatId, data.message);
       let chat = self.chatService.getChat(data.chatId);
@@ -84,9 +83,9 @@ export class ChatComponent implements OnInit {
       }
     });
 
-
   }
 
+  // generates and sends Message
   sendMessage() {
     let self = this;
     self.socket.emit('message-send', {
@@ -101,6 +100,9 @@ export class ChatComponent implements OnInit {
     this.sendForm.reset();
   }
 
+  // main logout action
+  // uses socket event, userService
+  // and chatService to clear all User Data from localStorage
   logout(e) {
     e.preventDefault();
     this.socket.emit('user-logout', this.user.id);
@@ -109,11 +111,13 @@ export class ChatComponent implements OnInit {
     this.router.navigate(['']);
   }
 
+  // sends start chat event as chat room is chosen
   chooseChat(companyUserId) {
     this.currCompanyUserId = companyUserId;
     this.socket.emit('chat-start', this.user.id, companyUserId);
   }
 
+  // helper method to format time for Message sent
   formatAMPM(date) {
     let hours = date.getHours();
     let minutes = date.getMinutes();

@@ -1,3 +1,4 @@
+// Component for one tab restriction notification
 import { Component, OnInit } from '@angular/core';
 
 @Component({

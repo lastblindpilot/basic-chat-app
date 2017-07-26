@@ -3,6 +3,9 @@ const IO = require('socket.io');
 const Users = require('./users');
 const UUID = require('uuid/v4');
 
+// Main Server Socket logic
+// store User data in Server side Cache
+
 module.exports = function(srv) {
 
   const io = IO.listen(srv);
