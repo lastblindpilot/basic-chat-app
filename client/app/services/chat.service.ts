@@ -29,4 +29,8 @@ export class ChatService {
 		localStorage.setItem(chat.id, JSON.stringify(chat));
 	}
 
+	logout() {
+		localStorage.clear();
+	}
+
 }

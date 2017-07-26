@@ -17,9 +17,12 @@ textarea {
   width: 100%;
 }
 .all-conversation .users-head {
-  background: #f5f3f3 none repeat scroll 0 0;
+  background: #337ab7 none repeat scroll 0 0;
+  opacity: .65;
+  font-weight: 500;
+  color: #ffffff;
   border: 1px solid #dddddd;
-  height: 56px;
+  height: 58px;
   text-align: left;
   width: 100%;
   padding: 18px 10px;
@@ -89,7 +92,7 @@ textarea {
    .users li:last-child {
    }
 .users {
-  height: 450px;
+  height: 448px;
   overflow-x: hidden;
   overflow-y: auto;
   border: 1px solid #dddddd;
@@ -120,12 +123,15 @@ textarea {
   border: medium none;
 }
 .conversation-head {
-  background: #f5f3f3 none repeat scroll 0 0;
+  background: #337ab7 none repeat scroll 0 0;
+  opacity: .65;
+  font-weight: 500;
+  color: #ffffff;
   float: left;
   font-size: 13px;
-  font-weight: 600;
   padding: 18px 10px;
   width: 100%;
+  color:;
 }
 .message-section {
   border: 1px solid #dddddd;

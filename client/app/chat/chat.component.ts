@@ -18,7 +18,6 @@ export class ChatComponent implements OnInit {
   private socket = IO(this.serverUrl);
   public currentChatId = '';
 	public messages = [];
-  //message =''; // to delete
   public user;
   public users = [];
   public currCompanyUserId = null;
@@ -95,23 +94,7 @@ export class ChatComponent implements OnInit {
     });
 
 
-
-
-/*
-
-
-    this.socket.on('message-echo', function(data) {
-      console.log('message-echo > ', data);
-    });*/
-
   }
-
-  /*sendMessage(e) {
-  	e.preventDefault();
-  	console.log('Message > ', this.message);
-    this.socket.emit('message-sent', this.message);
-  	this.message = '';
-  }*/
 
   sendMessage() {
     console.log('send message', this.sendForm.value.message);
@@ -132,12 +115,11 @@ export class ChatComponent implements OnInit {
     e.preventDefault();
     this.socket.emit('user-logout', this.user.id);
     this.userService.logout();
-    //this.socket.disconnect();
+    this.chatService.logout();
     this.router.navigate(['']);
   }
 
   chooseChat(companyUserId) {
-    //console.log('target >', e.target);
     this.currCompanyUserId = companyUserId;
     this.socket.emit('chat-start', this.user.id, companyUserId);
   }

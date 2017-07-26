@@ -51,6 +51,16 @@ class Users {
 		}
 	}
 
+	detachChatId(userId) {
+		if(Object.keys(this.users).length) {
+			for (let uId in this.users) {
+				if (this.users[uId].chats) {
+					delete this.users[uId].chats[userId];
+				}
+			}
+		}
+	}
+
 }
 
 module.exports = Users;

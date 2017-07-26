@@ -69,6 +69,7 @@ module.exports = function(srv) {
     });
 
     socket.on('user-logout', function(userId) {
+      usersCache.detachChatId(userId);
       usersCache.removeUser(userId);
       //let users = usersCache.prepareUsers();
       io.sockets.emit('users-update', usersCache.users);
