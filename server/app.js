@@ -9,10 +9,10 @@ let app = express();
 app.set('view engine', 'html');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({'extended':'false'}));
-app.use('/', express.static(path.join(__dirname, 'dist')));
+app.use('/', express.static(path.join(__dirname, '../dist')));
 
 app.get('/*', function(req, res) {
-  res.sendFile(path.join(__dirname, './public/index.html'));
+  res.sendFile(path.join(__dirname, '../dist/index.html'));
 });
 
 // catch 404 and forward to error handler
