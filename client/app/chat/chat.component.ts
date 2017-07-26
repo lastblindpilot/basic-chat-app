@@ -44,18 +44,11 @@ export class ChatComponent implements OnInit {
 
     self.socket.emit('user-joined', self.user);
 
-  	console.log('chat init');
-    console.log('socket data', self.socket);
-    
     self.socket.on('users-update', function(users) {
-      console.log('USERS CLIENT >>', users);
-      console.log('TYPEOF USERS CLIENT >>', typeof users);
-
       self.users = self.userService.prepareOwnUsers(users);
     });
 
     self.socket.on('user-has-tab-already', function() {
-      console.log('should redirect this user');
       self.router.navigate(['/toomuchtabs']);
     });
 
@@ -64,7 +57,6 @@ export class ChatComponent implements OnInit {
 
 
     self.socket.on('chat-init', function(chatId, userId, companyUserId) {
-      console.log('CHAT INIT ! >', chatId);
       let chat = self.chatService.getChat(chatId);
       chat.users = [userId, companyUserId];
       self.chatService.saveChat(chat);
@@ -85,11 +77,10 @@ export class ChatComponent implements OnInit {
       self.chatService.saveMessage(data.chatId, data.message);
       let chat = self.chatService.getChat(data.chatId);
       if (chat.users.indexOf(self.currCompanyUserId) >= 0) {
-        console.log('WE MUST SHOW CHAT');
         self.currentChatId = chat.id;
         self.messages = chat.messages;
       } else {
-        console.log('WE DON"T SHOW CHAT');
+        //implement amount of messages recieved on each unactive chat room on sidebar
       }
     });
 
@@ -97,7 +88,6 @@ export class ChatComponent implements OnInit {
   }
 
   sendMessage() {
-    console.log('send message', this.sendForm.value.message);
     let self = this;
     self.socket.emit('message-send', {
       chatId: this.currentChatId,

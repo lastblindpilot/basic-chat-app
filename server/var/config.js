@@ -1,10 +1,5 @@
 'use strict';
 
-/*let dbUser = {
-	name: 'sergeykhmylov',
-	password: 'e2-OVi_6'
-};
-*/
 let config = {
 	port: 3000/*,
 	mongoose: {
