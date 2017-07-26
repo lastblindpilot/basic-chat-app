@@ -29,5 +29,8 @@ Application is available at localhost:3000
 ### Production environment launch:
 `npm start`
 
+## Tests
+Integration tests
+
 ## TODO
-Develop more tests
+Develop client tests

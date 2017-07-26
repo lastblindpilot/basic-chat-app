@@ -1,3 +1,4 @@
+'use strict';
 const assert = require('assert');
 const Users = require('../lib/users');
 const UUID = require('uuid/v4');
