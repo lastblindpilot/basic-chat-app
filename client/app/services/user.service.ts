@@ -11,6 +11,9 @@ export class UserService {
 			id: 'u-'+UUID.UUID(),
 			name: name
 		}
+		if (localStorage.getItem('chatUser') != null) {
+			return false;
+		} 
 		localStorage.setItem('chatUser', JSON.stringify(user));
 		return { id: user.id, name: user.name };
 	}

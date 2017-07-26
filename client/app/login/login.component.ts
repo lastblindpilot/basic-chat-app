@@ -33,9 +33,13 @@ export class LoginComponent implements OnInit {
   login() {
     
   	console.log('here', this.loginForm.value);
-  	this.userService.login(this.loginForm.value.username);
-  	this.router.navigate(['/chat']);
-  
+  	let result:any = this.userService.login(this.loginForm.value.username);
+    if (result === false) {
+      this.router.navigate(['/toomuchtabs']);
+    } else {
+      this.router.navigate(['/chat']);
+    }
+  	
   }
 
 }
