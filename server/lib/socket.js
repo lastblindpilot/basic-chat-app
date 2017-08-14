@@ -38,9 +38,18 @@ module.exports = function(srv) {
     });
 
     socket.on('message-send', function(data) {
+      console.log('usersCache >> ', usersCache);
+      console.log('data >> ', data);
       io.sockets.in(data.chatId).emit('message-new', data);
     });
 
+    /*socket.on('message-sent', function(data) {
+      io.sockets.emit('message-echo', data);
+    });*/
+
+    socket.on('message-read', function(chatId) {
+      io.sockets.in(chatId).emit('message-mark-read', chatId);
+    });
 
     socket.on('disconnect', function() {
       usersCache.removeUserSocket(socket.userId, socket.id);
@@ -51,10 +60,6 @@ module.exports = function(srv) {
       usersCache.removeUser(userId);
       //let users = usersCache.prepareUsers();
       io.sockets.emit('users-update', usersCache.users);
-    });
-
-    socket.on('message-sent', function(data) {
-      io.sockets.emit('message-echo', data);
     });
 
   });

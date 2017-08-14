@@ -34,6 +34,31 @@ export class ChatService {
 		localStorage.setItem(chat.id, JSON.stringify(chat));
 	}
 
+	// marks last message of chat read
+	markMessagesRead(chatId) {
+		console.log('chatId', chatId);
+
+		let chat = JSON.parse(localStorage.getItem(chatId));
+
+		console.log('chat', chat);
+		let iter = 0;
+		console.log('chat.messages', chat.messages);
+		while (chat.messages[chat.messages.length - 1 - iter] && chat.messages[chat.messages.length - 1 - iter].isRead == false) {
+			chat.messages[chat.messages.length - 1 - iter].isRead = true;
+			iter++;
+		}
+		localStorage.setItem(chatId, JSON.stringify(chat));
+	}
+
+	isLastMessageOfCompanyIsNotRead(chat, userId) {
+		let msgsLength = chat.messages.length;
+		if (!msgsLength) {
+			return false;
+		} else {
+			return ((chat.messages[msgsLength - 1].userId != userId) && (chat.messages[msgsLength - 1].isRead == false));
+		}
+	}
+
 	// clears localStorage as soon as User logs out
 	logout() {
 		localStorage.clear();

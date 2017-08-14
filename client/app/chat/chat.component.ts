@@ -62,26 +62,49 @@ export class ChatComponent implements OnInit {
     // to recieve messages from each other
     self.socket.on('chat-init', function(chatId, userId, companyUserId) {
       let chat = self.chatService.getChat(chatId);
-      chat.users = [userId, companyUserId];
-      self.chatService.saveChat(chat);
-      if (self.currCompanyUserId == userId || self.currCompanyUserId == companyUserId) {
+      if (!chat.users) {
+        chat.users = [userId, companyUserId];
+        self.chatService.saveChat(chat);
+      }
+      if (chat.users.indexOf(self.currCompanyUserId) >= 0) {
         self.currentChatId = chat.id;
-        self.messages = chat.messages;
+        if (self.chatService.isLastMessageOfCompanyIsNotRead(chat, self.user.id)) {
+           self.socket.emit('message-read', chatId);
+        } else {
+           self.messages = chat.messages;
+        }
+
       }
       self.socket.emit('chat-room-subscribe', chat.id);
     });
 
     // saves new messages and shows chat if User is in the current Chat Room
     self.socket.on('message-new', function(data) {
+
       self.chatService.saveMessage(data.chatId, data.message);
       let chat = self.chatService.getChat(data.chatId);
       if (chat.users.indexOf(self.currCompanyUserId) >= 0) {
-        self.currentChatId = chat.id;
+        // received message to ACTIVE chat room
+        if (data.message.userId != self.user.id) {
+          self.socket.emit('message-read', data.chatId);
+        }
+        //self.currentChatId = chat.id;
         self.messages = chat.messages;
       } else {
+        // received message to UNACTIVE chat room
         //implement amount of messages recieved on each unactive chat room on sidebar
+        console.log('received message and is NOT CURRENT chat');
       }
     });
+
+    self.socket.on('message-mark-read', function(chatId) {
+      self.chatService.markMessagesRead(chatId);
+      let chat = self.chatService.getChat(chatId);
+      if (chat.users.indexOf(self.currCompanyUserId) >= 0) {
+        //self.currentChatId = chat.id;
+        self.messages = chat.messages;
+      }
+    });    
 
   }
 
@@ -89,12 +112,15 @@ export class ChatComponent implements OnInit {
   sendMessage() {
     let self = this;
     self.socket.emit('message-send', {
+      /*userId: self.user.id,
+      companyUserId: self.currCompanyUserId,*/
       chatId: this.currentChatId,
       message: {
         userId: self.user.id,
         userName: self.user.name,
         text: self.sendForm.value.message,
-        time: self.formatAMPM(new Date())
+        time: self.formatAMPM(new Date()),
+        isRead: false
       }
     });
     this.sendForm.reset();
