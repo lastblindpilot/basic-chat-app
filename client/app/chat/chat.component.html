@@ -25,7 +25,7 @@
                     <strong class="primary-font">{{user.name}}</strong>
 
 
-                    <!-- <span class="badge pull-right">3</span> -->
+                    <span class="badge pull-right" *ngIf="user.hasUnreadMessages">&#9737;</span>
                   
 
                   </div>

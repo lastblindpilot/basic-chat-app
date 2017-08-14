@@ -49,6 +49,24 @@ export class UserService {
 		return ownUsers;
 	}
 
+	markUserUnread(users, userId) {
+		users.forEach(function(u) {
+			if (u.id == userId) {
+				u.hasUnreadMessages = true;
+			}
+		});
+		return users;
+	}
+
+	markUserRead(users, userId) {
+		users.forEach(function(u) {
+			if (u.id == userId) {
+				u.hasUnreadMessages = false;
+			}
+		});
+		return users;
+	}
+
 	// clears current User in localStorage on User log out
 	logout() {
 		localStorage.removeItem('chatUser');

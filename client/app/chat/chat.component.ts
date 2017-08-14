@@ -70,6 +70,7 @@ export class ChatComponent implements OnInit {
         self.currentChatId = chat.id;
         if (self.chatService.isLastMessageOfCompanyIsNotRead(chat, self.user.id)) {
            self.socket.emit('message-read', chatId);
+           self.users = self.userService.markUserRead(self.users, self.currCompanyUserId);
         } else {
            self.messages = chat.messages;
         }
@@ -86,16 +87,17 @@ export class ChatComponent implements OnInit {
       if (chat.users.indexOf(self.currCompanyUserId) >= 0) {
         // received message to ACTIVE chat room
         if (data.message.userId != self.user.id) {
+          // it is message of company user
           self.socket.emit('message-read', data.chatId);
         } else {
+          // it is message of user himself, we should not mark it read or not
           self.messages = chat.messages;
         }
-        //self.currentChatId = chat.id;
-        //self.messages = chat.messages;
       } else {
-        // received message to UNACTIVE chat room
-        //implement amount of messages recieved on each unactive chat room on sidebar
-        console.log('received message and is NOT CURRENT chat');
+        // received message to INACTIVE chat room
+        if (data.message.userId != self.user.id) {
+          self.users = self.userService.markUserUnread(self.users, data.message.userId);
+        }
       }
     });
 
