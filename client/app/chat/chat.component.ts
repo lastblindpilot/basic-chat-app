@@ -87,9 +87,11 @@ export class ChatComponent implements OnInit {
         // received message to ACTIVE chat room
         if (data.message.userId != self.user.id) {
           self.socket.emit('message-read', data.chatId);
+        } else {
+          self.messages = chat.messages;
         }
         //self.currentChatId = chat.id;
-        self.messages = chat.messages;
+        //self.messages = chat.messages;
       } else {
         // received message to UNACTIVE chat room
         //implement amount of messages recieved on each unactive chat room on sidebar

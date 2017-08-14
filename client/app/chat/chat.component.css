@@ -153,11 +153,14 @@ textarea {
 .chat-area .chat-body1 {
   margin-left: 50px;
 }
-.chat-body1 p {
+.chat-area .chat-body2 {
+  margin-right: 50px;
+}
+.chat-body1 p, .chat-body2 p {
   background: #fbf9fa none repeat scroll 0 0;
   padding: 10px;
 }
-.chat-area .admin-chat .chat-body1 {
+.chat-area .admin-chat .chat-body1, .chat-area .admin-chat .chat-body2 {
   margin-left: 0;
   margin-right: 50px;
 }

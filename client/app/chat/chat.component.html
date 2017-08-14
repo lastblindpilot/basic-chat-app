@@ -60,14 +60,28 @@
             <ul class="list-unstyled">
 
               <li class="left clearfix" *ngFor="let message of messages">
-                <div class="pull-left" style="padding: 0px 0px 3px 0px">{{message.userName}}</div>
+                <div [ngClass]="{'pull-right' : (user.id == message.userId), 'pull-left' : (user.id != message.userId)}"  style="padding: 0px 0px 3px 0px">
+                  <span *ngIf="user.id == message.userId; else userName">
+                    You &nbsp;
+                  </span>
+                  <ng-template #userName>
+                    <span>
+                      {{message.userName}}  
+                    </span>
+                  </ng-template>
+                </div>
                 <div class="clearfix"></div>
-                <span class="chat-img1 pull-left">
+                <span class="chat-img1" [ngClass]="{'pull-right' : (user.id == message.userId), 'pull-left' : (user.id != message.userId)}">
                      <img src="https://www.techinasia.com/assets/images/profile/icon-defaultprofile.png" alt="User Avatar" class="img-circle">
                      </span>
-                <div class="chat-body1 clearfix">
-                  <p>{{message.text}}</p>
-                  <div class="chat-time pull-right">{{message.time}} {{message.isRead}}</div>
+                <div class="clearfix" [ngClass]="{'chat-body2' : (user.id == message.userId), 'chat-body1' : (user.id != message.userId)}">
+                  <p>
+                    {{message.text}}
+                    <span class="pull-right" *ngIf="!message.isRead">
+                      &#9732;
+                    </span>
+                  </p>
+                  <div class="chat-time pull-right">{{message.time}}</div>
                 </div>
               </li>
               <li class="left clearfix">
