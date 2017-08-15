@@ -61,6 +61,7 @@ export class ChatService {
 		}
 	}
 
+	// removes chat history from lacalStorage on client
 	removeChat(chatId) {
 		localStorage.removeItem(chatId);
 	}

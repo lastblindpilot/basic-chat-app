@@ -125,8 +125,6 @@ export class ChatComponent implements OnInit {
   sendMessage() {
     let self = this;
     self.socket.emit('message-send', {
-      /*userId: self.user.id,
-      companyUserId: self.currCompanyUserId,*/
       chatId: this.currentChatId,
       message: {
         userId: self.user.id,
