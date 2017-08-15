@@ -17,7 +17,8 @@ export class ChatComponent implements OnInit {
   // Socket IO init
   private serverUrl = 'http://localhost:3000';
   private socket = IO(this.serverUrl);
-  public currentChatId = '';
+  // main variables
+  public currentChatId = null;
 	public messages = [];
   public user;
   public users = [];
@@ -55,6 +56,14 @@ export class ChatComponent implements OnInit {
     // Redirects to one-tab restriction notification
     self.socket.on('user-has-tab-already', function() {
       self.router.navigate(['/toomuchtabs']);
+    });
+
+    self.socket.on('user-company-logged-out', function(chatId) {
+      if (self.currentChatId == chatId) {
+        self.currentChatId = null;
+        self.messages = [];
+      }
+      self.chatService.removeChat(chatId);
     });
 
     // As soon as chat is initialized between two users
@@ -108,7 +117,7 @@ export class ChatComponent implements OnInit {
         //self.currentChatId = chat.id;
         self.messages = chat.messages;
       }
-    });    
+    });
 
   }
 

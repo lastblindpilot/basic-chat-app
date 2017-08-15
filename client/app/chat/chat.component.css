@@ -146,6 +146,10 @@ textarea {
 .chat-area li {
   padding: 14px 14px 0;
 }
+.chat-area .chat-empty-header {
+  padding: 25px;
+  color: #ececec;
+}
 .chat-area li .chat-img1 img {
   height: 40px;
   width: 40px;

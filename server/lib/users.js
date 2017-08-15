@@ -64,14 +64,17 @@ class Users {
 	}
 
 	// detaches chatId for Users data
-	detachChatId(userId) {
+	detachChatIds(userId) {
+		let chatIds = [];
 		if(Object.keys(this.users).length) {
 			for (let uId in this.users) {
 				if (this.users[uId].chats) {
+					if (this.users[uId].chats[userId]) chatIds.push(this.users[uId].chats[userId]);
 					delete this.users[uId].chats[userId];
 				}
 			}
 		}
+		return chatIds;
 	}
 
 }

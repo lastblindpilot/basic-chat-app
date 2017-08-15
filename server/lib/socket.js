@@ -56,9 +56,13 @@ module.exports = function(srv) {
     });
 
     socket.on('user-logout', function(userId) {
-      usersCache.detachChatId(userId);
+      let chatIds = usersCache.detachChatIds(userId);
+      if (chatIds.length) {
+        chatIds.forEach(function(cId) {
+          io.sockets.in(cId).emit('user-company-logged-out', cId);
+        });
+      }
       usersCache.removeUser(userId);
-      //let users = usersCache.prepareUsers();
       io.sockets.emit('users-update', usersCache.users);
     });
 

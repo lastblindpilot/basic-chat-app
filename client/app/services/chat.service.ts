@@ -50,6 +50,8 @@ export class ChatService {
 		localStorage.setItem(chatId, JSON.stringify(chat));
 	}
 
+	// checks if last message in chat history
+	// is company user message and if it is not read
 	isLastMessageOfCompanyIsNotRead(chat, userId) {
 		let msgsLength = chat.messages.length;
 		if (!msgsLength) {
@@ -57,6 +59,10 @@ export class ChatService {
 		} else {
 			return ((chat.messages[msgsLength - 1].userId != userId) && (chat.messages[msgsLength - 1].isRead == false));
 		}
+	}
+
+	removeChat(chatId) {
+		localStorage.removeItem(chatId);
 	}
 
 	// clears localStorage as soon as User logs out

@@ -57,6 +57,12 @@
           </div>
 
           <div class="chat-area">
+            <h2 *ngIf="!currentChatId" class="chat-empty-header">
+              Please, choose chat
+            </h2>
+            <h2 *ngIf="currentChatId && !messages.length" class="chat-empty-header">
+              No chat history yet
+            </h2>
             <ul class="list-unstyled">
 
               <li class="left clearfix" *ngFor="let message of messages">
