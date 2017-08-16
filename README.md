@@ -23,7 +23,7 @@ Application is available at localhost:4200
 
 ### Production mode:
 `npm run prod` – runs concurrently ng build –env=prod for Angular 4 app and node
-server/bin/www commands.
+server/bin/www commands
 Application is available at localhost:3000
 
 ### Production environment launch:
